@@ -1,0 +1,9 @@
+.chat{
+  border:solid 1px orangered;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 500px;
+  max-width: 500px;
+  min-height: 500px;
+  max-height: 500px;
+}

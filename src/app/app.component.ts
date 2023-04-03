@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {LineService} from "./core/line.service";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,47 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test-line';
+
+  channeld: string = '1657879221'
+  channelSecret: string = '5df738274847d01d22354ee989df341b'
+  formLine: FormGroup
+  isConnect = false
+  connection = this.core.getLineToken.pipe(
+    tap((res:any) => {
+      console.log({res})
+      if(res){
+        this.formLine.setValue({
+          channelIdMessaging: res.channelIdMessaging,
+          channelSecretMessaging: res.channelSecretMessaging,
+          channelAccessToken: res.channelAccessToken,
+          channelWebhook: res.channelWebhook,
+          // channelIdLogin: res.channelIdLogin,
+          // channelSecretLogin: res.channelSecretLogin,
+          // callbackUrl: res.callbackUrl,
+          lineId: res.lineId
+        })
+        this.isConnect = true
+      }
+    })
+  )
+
+  constructor(private fb: FormBuilder,private core:LineService) {
+
+    this.formLine = this.fb.group({
+      channelIdMessaging: this.channeld,
+      channelSecretMessaging: this.channelSecret,
+      channelAccessToken: 'i1pQkBiSb1u7xOjTy43W29S3GDfYCSxy76mY38kMZY2KsuxgeUXDvhjQLlSMMXKPcsjUJ82xzJGGQisZ0D2KNMzm5NwTZ0ZdBTb4Bf1uc61LVu0xU7V3r/q2O6uYFvBDwQv18SwaGVLPlSXCRuZn4AdB04t89/1O/w1cDnyilFU=',
+      channelWebhook: 'https://api-line.netlify.app/.netlify/functions/api/webhook',
+      // channelIdLogin: this.channeld,
+      // channelSecretLogin: this.channelSecret,
+      // callbackUrl: 'XXXXXXXXXXXXXXXXXXXXXXXXXXX',
+      lineId: '@045jjife'
+    })
+
+  }
+
+
+  submitForm() {
+    this.core.setLineToken = this.formLine.value
+  }
 }

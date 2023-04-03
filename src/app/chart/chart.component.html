@@ -1,0 +1,29 @@
+<div style="display: flex;">
+
+<div style="padding: 20px;min-width: 150px">
+  <div *ngFor="let user of users$ | async" style="background-color: lightgreen;padding: 10px; margin-bottom: 10px;cursor:pointer;" (click)="selectUser(user.userId)">
+<!--    {{user | json}}-->
+    <img style="width: 40px;height: 40px; border-radius: 25px" [src]="user.pictureUrl" alt="">
+    {{user.displayName}}
+
+  </div>
+</div>
+
+<div class="chat">
+  <div *ngFor="let item of messages$ | async" style="display: flex;gap:30px;align-items: center;margin-bottom: 20px;">
+    <div style="display: flex;flex-direction: column;align-items: center">
+      <img style="width: 40px;height: 40px; border-radius: 25px" [src]="item.profile.pictureUrl" alt="">
+      <small>{{item.timestamp | date}}</small>
+    </div>
+    <div style="width: auto;color: red">
+<!--      {{item | json}}-->
+
+      {{item.message.text}}
+    </div>
+  </div>
+
+
+
+</div>
+
+</div>

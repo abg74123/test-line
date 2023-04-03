@@ -1,0 +1,54 @@
+.cardConnectLine{
+  width:500px;
+  padding: 5px 10px;
+  background-color: limegreen;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  margin-bottom: 10px;
+}
+.form-group label {
+  font-weight: bold;
+}
+
+.flex-row{
+  display: flex;
+  gap:200px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  padding: 0px 20px;
+  display: inline;
+}
+
+input{
+  border-radius: 5px;
+  padding: 10px;
+  border-color: lightgray;
+}
+
+.menu li{
+  border:solid 1px #000;
+  margin-left: 10px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.menu li:hover{
+  background-color: limegreen;
+}
+
+.menu li.active{
+  border:solid 1px greenyellow;
+  background-color: greenyellow;
+  color:orangered;
+}
