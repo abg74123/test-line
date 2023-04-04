@@ -64,7 +64,6 @@ export class LineService {
     )
   }
 
-
   getMessages(userId:string){
     const line:any = this.lineToken.getValue()
     console.log({line})
