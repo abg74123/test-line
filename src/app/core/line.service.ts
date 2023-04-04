@@ -28,7 +28,6 @@ export class LineService {
     this.lineToken.next(value)
   }
 
-
   sendBroadcastMessage(message:string){
     const line:any = this.lineToken.getValue()
     console.log({line})
