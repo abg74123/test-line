@@ -52,3 +52,18 @@ input{
   background-color: greenyellow;
   color:orangered;
 }
+
+
+.info{
+  margin: 20px 0px;
+  padding: 10px;
+  background-color: red;
+  width: fit-content;
+  border-radius: 5px;
+  color: #FFF;
+}
+
+
+.pl-4{
+  padding-left: 4rem;
+}

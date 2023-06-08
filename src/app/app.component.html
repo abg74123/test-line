@@ -2,11 +2,30 @@
 --------------------------------------
 <div style="width: 500px;">
   <pre>
-  {{((connection | async) || 'NOT CONNECT' | json)}}
+  {{((connection$ | async) || 'NOT CONNECT' | json)}}
 </pre>
 </div>
 
 --------------------------------------
+
+<div *ngIf="botInfo$ | async as botInfo" class="info">
+  <img width="100" height="100" [src]="botInfo.info.pictureUrl" alt="">
+  <table>
+    <tr>
+      <td>ชื่อ</td>
+      <td class="pl-4">{{botInfo.info.displayName}}</td>
+    </tr>
+    <tr>
+      <td>line ID</td>
+      <td class="pl-4">{{botInfo.info.basicId}}</td>
+    </tr>
+    <tr>
+      <td>followers</td>
+      <td class="pl-4">{{botInfo.followers.followers | number}}</td>
+    </tr>
+  </table>
+</div>
+
 <div class="flex-row">
 
 <form (ngSubmit)="submitForm()" [formGroup]="formLine">

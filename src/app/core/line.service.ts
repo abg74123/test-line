@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, from, tap} from "rxjs";
+import {BehaviorSubject, forkJoin, from, map, Observable, tap} from "rxjs";
 import {pluck} from "rxjs/operators";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-
 @Injectable({
   providedIn: 'root'
 })
 export class LineService {
+
+   headers = new HttpHeaders({
+    'Content-Type' : 'application/json'
+  })
+
+   options = {
+    headers:this.headers
+  };
 
   port = 'https://api-line.netlify.app/.netlify/functions/api'
 
@@ -23,58 +30,56 @@ export class LineService {
     return this.lineToken$
   }
 
+  getBotInfo(channelAccessToken:string){
+    const info$ = this.http.get(this.port+`/bot/info?channelAccessToken=${channelAccessToken}`,this.options).pipe(
+      map((res:any) => res.data),
+    )
+    const followers$ = this.http.get(this.port+`/bot/insight/followers?date=${20191231}&channelAccessToken=${channelAccessToken}`,this.options).pipe(
+      map((res:any) => res.data),
+    )
+
+    const joinData:Observable<{info:any,followers:any}> = forkJoin({info:info$,followers:followers$})
+    return joinData
+  }
+
+
+
+
   set setLineToken(value:any){
     localStorage.setItem('line',JSON.stringify(value))
     this.lineToken.next(value)
   }
 
-  sendBroadcastMessage(message:string){
-    const line:any = this.lineToken.getValue()
-    console.log({line})
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json'
-    })
+  get getLineTokenValue(){
+    return this.lineToken.getValue()
+  }
 
-    let options = {
-      headers
-    };
+  sendBroadcastMessage(message:string){
+    const line:any = this.getLineTokenValue
+    console.log({line})
 
     return this.http.post(this.port+'/broadcast/messages',{
         message:message,
         channelAccessToken:line.channelAccessToken
-      },options)
+      },this.options)
   }
 
   getUsers(){
 
-    const line:any = this.lineToken.getValue()
+    const line:any = this.getLineTokenValue
     console.log({line})
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json'
-    })
 
-    let options = {
-      headers
-    };
-
-    return this.http.get(this.port+`/list/users?channelAccessToken=${line.channelAccessToken}`,options).pipe(
+    return this.http.get(this.port+`/list/users?channelAccessToken=${line.channelAccessToken}`,this.options).pipe(
       pluck('data'),
       tap(res => console.log('users => ',res))
     )
   }
 
   getMessages(userId:string){
-    const line:any = this.lineToken.getValue()
+    const line:any = this.getLineTokenValue
     console.log({line})
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json'
-    })
 
-    let options = {
-      headers
-    };
-
-    return this.http.get(this.port+`/messages/${userId}?channelAccessToken=${line.channelAccessToken}`,options).pipe(
+    return this.http.get(this.port+`/messages/${userId}?channelAccessToken=${line.channelAccessToken}`,this.options).pipe(
       pluck('data'),
       tap(res => console.log('messages => ',res))
     )

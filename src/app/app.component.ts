@@ -14,7 +14,7 @@ export class AppComponent {
   channelSecret: string = '5df738274847d01d22354ee989df341b'
   formLine: FormGroup
   isConnect = false
-  connection = this.core.getLineToken.pipe(
+  connection$ = this.core.getLineToken.pipe(
     tap((res:any) => {
       console.log({res})
       if(res){
@@ -23,9 +23,6 @@ export class AppComponent {
           channelSecretMessaging: res.channelSecretMessaging,
           channelAccessToken: res.channelAccessToken,
           channelWebhook: res.channelWebhook,
-          // channelIdLogin: res.channelIdLogin,
-          // channelSecretLogin: res.channelSecretLogin,
-          // callbackUrl: res.callbackUrl,
           lineId: res.lineId
         })
         this.isConnect = true
@@ -33,16 +30,14 @@ export class AppComponent {
     })
   )
 
-  constructor(private fb: FormBuilder,private core:LineService) {
+  botInfo$ = this.core.getBotInfo((this.core.getLineTokenValue as any).channelAccessToken)
 
+  constructor(private fb: FormBuilder,private core:LineService) {
     this.formLine = this.fb.group({
       channelIdMessaging: this.channeld,
       channelSecretMessaging: this.channelSecret,
       channelAccessToken: 'i1pQkBiSb1u7xOjTy43W29S3GDfYCSxy76mY38kMZY2KsuxgeUXDvhjQLlSMMXKPcsjUJ82xzJGGQisZ0D2KNMzm5NwTZ0ZdBTb4Bf1uc61LVu0xU7V3r/q2O6uYFvBDwQv18SwaGVLPlSXCRuZn4AdB04t89/1O/w1cDnyilFU=',
       channelWebhook: 'https://api-line.netlify.app/.netlify/functions/api/webhook',
-      // channelIdLogin: this.channeld,
-      // channelSecretLogin: this.channelSecret,
-      // callbackUrl: 'XXXXXXXXXXXXXXXXXXXXXXXXXXX',
       lineId: '@045jjife'
     })
 
