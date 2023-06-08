@@ -30,7 +30,7 @@ export class AppComponent {
     })
   )
 
-  botInfo$ = this.core.getBotInfo((this.core.getLineTokenValue as any).channelAccessToken)
+  botInfo$ = this.core.getBotInfo()
 
   constructor(private fb: FormBuilder,private core:LineService) {
     this.formLine = this.fb.group({
@@ -45,6 +45,8 @@ export class AppComponent {
 
 
   submitForm() {
-    this.core.setLineToken = this.formLine.value
+    this.core.validateChannel(this.formLine.value).pipe(
+      tap(() => this.core.setLineToken = this.formLine.value)
+    ).subscribe()
   }
 }
