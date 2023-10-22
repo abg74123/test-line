@@ -61,6 +61,7 @@ export class LineService {
       return this.http.post(this.port+`/validate/token`,{
         client_id:val.channelIdMessaging,
         client_secret:val.channelSecretMessaging,
+        access_token:val.channelAccessToken,
       },this.options).pipe(
         map((res:any) => res.data),
       )
