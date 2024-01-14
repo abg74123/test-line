@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LineService} from "../core/line.service";
+import {LineService} from "../../core/line.service";
 import {BehaviorSubject, tap} from "rxjs";
 
 @Component({
