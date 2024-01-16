@@ -5,6 +5,9 @@ import {ChartComponent} from "./connect-line/chart/chart.component";
 
 const routes: Routes = [
   {
+    path:'',redirectTo:'login',pathMatch:'full'
+  },
+  {
     path: 'connect',
     loadChildren: () => import('./connect-line/connect-line.module').then(m => m.ConnectLineModule)
   },
