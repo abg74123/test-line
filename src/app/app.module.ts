@@ -26,6 +26,7 @@ export class AppModule {
 
    ngOnInit(): void {
     if(liff.isLoggedIn()){
+      console.log("---login success---")
       const profile = liff.getProfile()
       console.log("profile => ",profile)
     }else{
