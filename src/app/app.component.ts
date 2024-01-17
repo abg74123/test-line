@@ -9,7 +9,7 @@ import {BehaviorSubject} from "rxjs";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  profile$:any = new BehaviorSubject(null)
+  profile$:any = new BehaviorSubject({})
 ngOnInit(): void {
 liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
 
