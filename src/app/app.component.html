@@ -5,8 +5,5 @@ MENU =>
 
 <router-outlet></router-outlet>
 
-<h1>PROFILE</h1>
-<button (click)="logout()">LOGOUT</button>
-<ng-container *ngIf="this.profile$ | async as profile">
-  {{profile | json}}
-</ng-container>
+  <button *ngIf="isLogin" (click)="register()">จำลองสมัครสมาชิกเสร็จ</button>
+

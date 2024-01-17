@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {BroadcastComponent} from "./connect-line/broadcast/broadcast.component";
-import {ChartComponent} from "./connect-line/chart/chart.component";
+import {InfoComponent} from "./info/info.component";
 
 const routes: Routes = [
   {
@@ -11,6 +10,9 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login-line/login-line.module').then(m => m.LoginLineModule)
+  },
+  {
+    path:'info',component:InfoComponent
   }
 ];
 
