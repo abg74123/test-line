@@ -1,12 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {BroadcastComponent} from "./connect-line/broadcast/broadcast.component";
-import {ChartComponent} from "./connect-line/chart/chart.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
-  {
-    path:'',redirectTo:'login',pathMatch:'full'
-  },
   {
     path: 'connect',
     loadChildren: () => import('./connect-line/connect-line.module').then(m => m.ConnectLineModule)
@@ -21,4 +17,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
