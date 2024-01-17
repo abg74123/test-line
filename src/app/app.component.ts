@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import liff from "@line/liff";
 import {BehaviorSubject} from "rxjs";
 
+    liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
