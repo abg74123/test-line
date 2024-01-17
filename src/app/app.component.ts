@@ -10,7 +10,7 @@ liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  profile$ = new BehaviorSubject({})
+  profile$:any = new BehaviorSubject(null)
 ngOnInit(): void {
     if(liff.isLoggedIn()){
       console.log("---login success---")
@@ -20,5 +20,9 @@ ngOnInit(): void {
     }else{
       liff.login()
     }
+  }
+
+  logout(){
+    liff.logout()
   }
 }
