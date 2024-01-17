@@ -1,5 +1,10 @@
 MENU =>
-<button routerLink="/connect">connect line</button> | 
+<button routerLink="/connect">connect line</button> |
 <button routerLink="/login">login line</button>
 <hr>
 <router-outlet></router-outlet>
+
+<h1>PROFILE</h1>
+<ng-container *ngIf="this.profile$ | async as profile">
+  {{profile | json}}
+</ng-container>
