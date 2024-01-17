@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import liff from "@line/liff";
 import {BehaviorSubject} from "rxjs";
 
-liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
 
 @Component({
   selector: 'app-root',
@@ -12,6 +11,8 @@ liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
 export class AppComponent implements OnInit{
   profile$:any = new BehaviorSubject(null)
 ngOnInit(): void {
+liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
+
     if(liff.isLoggedIn()){
       console.log("---login success---")
       const profile = liff.getProfile()
