@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
+import liff from "@line/liff";
 
+liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
 @NgModule({
   declarations: [
     AppComponent
@@ -20,4 +22,14 @@ import {HttpClientModule} from "@angular/common/http";
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+   ngOnInit(): void {
+    if(liff.isLoggedIn()){
+      const profile = liff.getProfile()
+      console.log("profile => ",profile)
+    }else{
+      liff.login()
+    }
+  }
+}

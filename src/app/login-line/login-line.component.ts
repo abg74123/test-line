@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import liff from "@line/liff";
 
-liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
 
 @Component({
   selector: 'app-login-line',
@@ -12,20 +9,9 @@ liff.init({liffId:'2002624343-g6braWW3',withLoginOnExternalBrowser: true})
 
 export class LoginLineComponent implements OnInit {
 
-  constructor(private http:HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
-    if(liff.isLoggedIn()){
-      const profile = liff.getProfile()
-      console.log("profile => ",profile)
-    }else{
-      liff.login()
-    }
-  }
-
-  login(){
-
-    this.http.get(' https://api.line.me/oauth2/v2.1/authorize').subscribe((res:any) => console.log("login => ",res))
 
   }
 }
