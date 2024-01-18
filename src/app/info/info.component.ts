@@ -32,16 +32,16 @@ export class InfoComponent implements OnInit {
 
   async back() {
 
-    const api_key = 'kli5TWfWl9rzwCNy/zjVBTFadcvrVZ1cBIzuGpd7vPwo6U8rhpScH1OEBgXClYZEcsjUJ82xzJGGQisZ0D2KNMzm5NwTZ0ZdBTb4Bf1uc63sceiRaVEHK+co1R3lWFSdbtLGhE7G3CWWt1YBQvBdKgdB04t89/1O/w1cDnyilFU='
-    const httpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${api_key}`,
-      "Access-Control-Allow-Origin": "*",
-    });
-
     const profile = await liff.getProfile()
 
-    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-bcd8213aaf142aad621cb024d978555c', {}, {headers: httpHeaders}).subscribe()
+      const body = {
+      userId:profile.userId,
+      richId:"richmenu-bcd8213aaf142aad621cb024d978555c"
+    }
+
+    this.router.post("https://api-line.netlify.app/rich/user", body).subscribe(() => {
+            this.route.navigate(['/register'])
+    })
 
   }
 }
