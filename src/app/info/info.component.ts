@@ -35,7 +35,7 @@ export class InfoComponent implements OnInit {
     headers.set('Authorization', 'Bearer kli5TWfWl9rzwCNy/zjVBTFadcvrVZ1cBIzuGpd7vPwo6U8rhpScH1OEBgXClYZEcsjUJ82xzJGGQisZ0D2KNMzm5NwTZ0ZdBTb4Bf1uc63sceiRaVEHK+co1R3lWFSdbtLGhE7G3CWWt1YBQvBdKgdB04t89/1O/w1cDnyilFU=');
     const profile = await liff.getProfile()
 
-    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-ad65167ebbde22b64698adfa74c2fc50', {}, {headers: headers}).subscribe(res => {
+    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-bcd8213aaf142aad621cb024d978555c', {}, {headers: headers}).subscribe(res => {
       this.route.navigate(['/register'])
     })
 
