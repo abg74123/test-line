@@ -34,12 +34,16 @@ export class InfoComponent implements OnInit {
 
     const profile = await liff.getProfile()
 
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*'
+    });
+
       const body = {
       userId:profile.userId,
       richId:"richmenu-bcd8213aaf142aad621cb024d978555c"
     }
 
-    this.router.post("https://api-line.netlify.app/rich/user", body).subscribe(() => {
+    this.router.post("https://api-line.netlify.app/rich/user", body, {headers:headers}).subscribe(() => {
             this.route.navigate(['/register'])
     })
 
