@@ -40,9 +40,7 @@ export class InfoComponent implements OnInit {
 
     const profile = await liff.getProfile()
 
-    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-bcd8213aaf142aad621cb024d978555c', {}, {headers: httpHeaders}).subscribe(res => {
-      this.route.navigate(['/register'])
-    })
+    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-bcd8213aaf142aad621cb024d978555c', {}, {headers: httpHeaders}).subscribe()
 
   }
 }

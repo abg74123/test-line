@@ -42,9 +42,7 @@ export class RegisterLineComponent implements OnInit {
 
     const profile = await liff.getProfile()
 
-    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-35b373981196a03521cb4cf7a80f669d', {}, {headers: httpHeaders}).subscribe(res => {
-      this.route.navigate(['/info'])
-    })
+    this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-35b373981196a03521cb4cf7a80f669d', {}, {headers: httpHeaders}).subscribe()
 
   }
 
