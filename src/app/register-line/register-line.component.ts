@@ -25,7 +25,8 @@ export class RegisterLineComponent implements OnInit {
         console.log("profile => ", profile)
         this.profile$.next(profile)
       }else{
-        liff.login()
+        const destinationUrl = 'https://main--flourishing-starburst-61ab72.netlify.app/register'
+        liff.login({redirectUri: destinationUrl})
       }
     })
 
