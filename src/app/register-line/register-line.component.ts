@@ -32,10 +32,14 @@ export class RegisterLineComponent implements OnInit {
   }
 
   async register() {
-    const httpHeaders: HttpHeaders = new HttpHeaders({
-      Accept     : 'application/json',
-      Authorization: 'Bearer kli5TWfWl9rzwCNy/zjVBTFadcvrVZ1cBIzuGpd7vPwo6U8rhpScH1OEBgXClYZEcsjUJ82xzJGGQisZ0D2KNMzm5NwTZ0ZdBTb4Bf1uc63sceiRaVEHK+co1R3lWFSdbtLGhE7G3CWWt1YBQvBdKgdB04t89/1O/w1cDnyilFU='
-    });
+
+    const api_key = 'kli5TWfWl9rzwCNy/zjVBTFadcvrVZ1cBIzuGpd7vPwo6U8rhpScH1OEBgXClYZEcsjUJ82xzJGGQisZ0D2KNMzm5NwTZ0ZdBTb4Bf1uc63sceiRaVEHK+co1R3lWFSdbtLGhE7G3CWWt1YBQvBdKgdB04t89/1O/w1cDnyilFU='
+   const httpHeaders = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${api_key}`
+      });
+
+
     const profile = await liff.getProfile()
 
     this.router.post('https://api.line.me/v2/bot/user/' + profile.userId + '/richmenu/richmenu-35b373981196a03521cb4cf7a80f669d', {}, {headers: httpHeaders}).subscribe(res => {
