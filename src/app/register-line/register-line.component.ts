@@ -25,8 +25,8 @@ export class RegisterLineComponent implements OnInit {
         console.log("profile => ", profile)
         this.profile$.next(profile)
       }else{
-        const destinationUrl = window.location.href + 'register'
-        liff.login({redirectUri: destinationUrl})
+        // const destinationUrl = window.location.href + 'register'
+        liff.login()
       }
     })
 
