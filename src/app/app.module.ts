@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
 import { InfoComponent } from './info/info.component';
+import {RegisterLineComponent} from "./register-line/register-line.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    InfoComponent
+    InfoComponent,
+    RegisterLineComponent
   ],
   imports: [
     BrowserModule,

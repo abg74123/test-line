@@ -1,0 +1,11 @@
+<h1>REGISTER</h1>
+<ng-container *ngIf="this.profile$ | async as profile">
+
+  <div style="display: flex;flex-direction: column;gap:10px;">
+    <input type="text" placeholder="ชื่อ-นามสกุล">
+    <input type="text" placeholder="เบอร์โทรศัพท์">
+    <input type="text" placeholder="ที่อยู่">
+    <button (click)="register()">สมัครสมาชิก</button>
+  </div>
+</ng-container>
+

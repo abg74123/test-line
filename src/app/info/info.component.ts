@@ -11,7 +11,6 @@ import {Router} from "@angular/router";
 })
 export class InfoComponent implements OnInit{
   profile$: any = new BehaviorSubject({})
-
     constructor(private router:HttpClient,private route:Router) {
   }
 
@@ -27,6 +26,7 @@ ngOnInit(): void {
     })
 
 }
+
 
 async back(){
            const headers = new HttpHeaders();
