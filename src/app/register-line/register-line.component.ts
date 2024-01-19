@@ -44,7 +44,7 @@ export class RegisterLineComponent implements OnInit {
       richId:"richmenu-35b373981196a03521cb4cf7a80f669d"
     }
 
-    this.router.post("https://main--api-line.netlify.app/rich/user", {...body},{headers:headers}).subscribe(() => {
+    this.router.post("https://api-line.netlify.app/.netlify/functions/api/rich/user", {...body},{headers:headers}).subscribe(() => {
             this.route.navigate(['/info'])
     })
 

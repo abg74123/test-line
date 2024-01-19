@@ -43,7 +43,7 @@ export class InfoComponent implements OnInit {
       richId:"richmenu-bcd8213aaf142aad621cb024d978555c"
     }
 
-    this.router.post("https://main--api-line.netlify.app/rich/user", {...body}, {headers:headers}).subscribe(() => {
+    this.router.post("https://api-line.netlify.app/.netlify/functions/api/rich/user", {...body}, {headers:headers}).subscribe(() => {
             this.route.navigate(['/register'])
     })
 
