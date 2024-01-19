@@ -35,7 +35,9 @@ export class InfoComponent implements OnInit {
     const profile = await liff.getProfile()
 
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+         'Connection': 'keep-alive',
+        'Content-Type': 'application/json'
     });
 
       const body = {
