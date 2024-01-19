@@ -54,6 +54,7 @@ export class RegisterLineComponent implements OnInit {
 
   logout(){
     liff.logout()
+    liff.closeWindow()
   }
 
 
