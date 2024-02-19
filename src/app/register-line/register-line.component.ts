@@ -3,6 +3,7 @@ import liff from "@line/liff";
 import {BehaviorSubject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {environment} from "../core/environment.prod";
 
 
 @Component({
@@ -19,7 +20,7 @@ export class RegisterLineComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    liff.init({liffId: '2002624343-g6braWW3', withLoginOnExternalBrowser: true}).then(async () => {
+    liff.init({liffId: environment.liffId, withLoginOnExternalBrowser: true}).then(async () => {
       if (liff.isLoggedIn()) {
         const profile = liff.getProfile()
         console.log("profile => ", profile)
