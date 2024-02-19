@@ -54,18 +54,15 @@ export class RegisterLineComponent implements OnInit {
         const profile = await liff.getProfile()
         console.log("profile => ", profile)
         this.router.get(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/${profile.userId}`).subscribe(
-          (res) => {
+          (res:any) => {
             console.log("res => ", res)
-          },
-          (error: any) => {
-            this.profile$.next(profile)
-          },
-          () => {
-            console.log("complete")
-            this.route.navigate(['/info'])
+              if(res.data){
+                this.profile$.next(profile)
+              }else{
+                this.route.navigate(['/info'])
+              }
           }
         )
-
       } else {
         liff.login()
       }
