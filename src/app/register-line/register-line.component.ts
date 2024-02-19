@@ -5,15 +5,45 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
 
-
 @Component({
   selector: 'app-register-line',
   templateUrl: './register-line.component.html',
   styleUrls: ['./register-line.component.css']
 })
 
+
+
 export class RegisterLineComponent implements OnInit {
   profile$: any = new BehaviorSubject(null)
+
+  formRegister:any = {
+      blockedNote: "",
+      compId: "",
+      customerCode: "",
+      customerCompanyContactInfo: undefined,
+      customerContactInfo: {
+            address: undefined,
+            emails: [],
+            firstName: "",
+            fullName: "",
+            lastName: "",
+            mobiles: [],
+            note: "",
+            personPic: "",
+            prefixName: "",
+            shippingAddress: [],
+            social: undefined,
+            tags: [],
+            taxNo: ""
+      },
+      customerNote: "",
+      isBlocked: false,
+      isMember: false,
+      orderType: undefined,
+      socialContact: [],
+      tags: [],
+      wasVendor: false
+}
 
 
   constructor(private router: HttpClient, private route: Router) {
@@ -25,7 +55,7 @@ export class RegisterLineComponent implements OnInit {
         const profile = liff.getProfile()
         console.log("profile => ", profile)
         this.profile$.next(profile)
-      }else{
+      } else {
         liff.login()
       }
     })
@@ -36,24 +66,21 @@ export class RegisterLineComponent implements OnInit {
 
     const profile = await liff.getProfile()
 
-      const headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
-        'Connection': 'keep-alive',
-        'Content-Type': 'application/json'
+      'Connection': 'keep-alive',
+      'Content-Type': 'application/json'
     });
 
-    const body = {
-      userId:profile.userId,
-      richId:"richmenu-35b373981196a03521cb4cf7a80f669d"
-    }
+    const body = this.formRegister
 
-    this.router.post("https://api-line.netlify.app/.netlify/functions/api/rich/user", {...body},{headers:headers}).subscribe(() => {
-            this.route.navigate(['/info'])
+    this.router.post(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/register/${profile.userId}`, {...body}, {headers: headers}).subscribe(() => {
+      this.route.navigate(['/info'])
     })
 
   }
 
-  logout(){
+  logout() {
     liff.logout()
     liff.closeWindow()
   }
