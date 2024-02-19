@@ -12,38 +12,37 @@ import {environment} from "../core/environment.prod";
 })
 
 
-
 export class RegisterLineComponent implements OnInit {
   profile$: any = new BehaviorSubject(null)
 
-  formRegister:any = {
-      blockedNote: "",
-      compId: "",
-      customerCode: "",
-      customerCompanyContactInfo: undefined,
-      customerContactInfo: {
-            address: undefined,
-            emails: [],
-            firstName: "",
-            fullName: "",
-            lastName: "",
-            mobiles: [],
-            note: "",
-            personPic: "",
-            prefixName: "",
-            shippingAddress: [],
-            social: undefined,
-            tags: [],
-            taxNo: ""
-      },
-      customerNote: "",
-      isBlocked: false,
-      isMember: false,
-      orderType: undefined,
-      socialContact: [],
+  formRegister: any = {
+    blockedNote: "",
+    compId: "",
+    customerCode: "",
+    customerCompanyContactInfo: undefined,
+    customerContactInfo: {
+      address: undefined,
+      emails: [],
+      firstName: "",
+      fullName: "",
+      lastName: "",
+      mobiles: [],
+      note: "",
+      personPic: "",
+      prefixName: "",
+      shippingAddress: [],
+      social: undefined,
       tags: [],
-      wasVendor: false
-}
+      taxNo: ""
+    },
+    customerNote: "",
+    isBlocked: false,
+    isMember: false,
+    orderType: undefined,
+    socialContact: [],
+    tags: [],
+    wasVendor: false
+  }
 
 
   constructor(private router: HttpClient, private route: Router) {
@@ -52,9 +51,20 @@ export class RegisterLineComponent implements OnInit {
   ngOnInit(): void {
     liff.init({liffId: environment.liffId, withLoginOnExternalBrowser: true}).then(async () => {
       if (liff.isLoggedIn()) {
-        const profile = liff.getProfile()
+        const profile = await liff.getProfile()
         console.log("profile => ", profile)
-        this.profile$.next(profile)
+        this.router.get(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/${profile.userId}`).subscribe(
+          (res) => {
+            console.log("res => ", res)
+          },
+          (error: any) => {
+            this.route.navigate(['/info'])
+          },
+          () => {
+            this.profile$.next(profile)
+          }
+        )
+
       } else {
         liff.login()
       }

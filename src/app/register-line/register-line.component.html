@@ -1,6 +1,5 @@
 <h1>REGISTER</h1>
 <ng-container *ngIf="this.profile$ | async as profile">
-
   <div style="display: flex;flex-direction: column;gap:10px;">
     <input type="text" [(ngModel)]="formRegister.customerContactInfo.firstName" placeholder="ชื่อนามสกุล">
     <input type="text" [(ngModel)]="formRegister.customerContactInfo.lastName" placeholder="นามสกุล">
