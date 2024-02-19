@@ -58,10 +58,10 @@ export class RegisterLineComponent implements OnInit {
             console.log("res => ", res)
           },
           (error: any) => {
-            this.route.navigate(['/info'])
+            this.profile$.next(profile)
           },
           () => {
-            this.profile$.next(profile)
+            this.route.navigate(['/info'])
           }
         )
 
