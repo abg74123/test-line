@@ -59,7 +59,7 @@ export class RegisterLineComponent implements OnInit {
               if(res.data){
                 this.profile$.next(profile)
               }else{
-                this.route.navigate(['/info'])
+                // this.route.navigate(['/info'])
               }
           }
         )
