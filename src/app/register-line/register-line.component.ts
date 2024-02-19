@@ -61,6 +61,7 @@ export class RegisterLineComponent implements OnInit {
             this.profile$.next(profile)
           },
           () => {
+            console.log("complete")
             this.route.navigate(['/info'])
           }
         )
