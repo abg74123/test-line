@@ -20,7 +20,7 @@ export class InfoComponent implements OnInit {
 
     liff.init({liffId: environment.liffId, withLoginOnExternalBrowser: true}).then(async () => {
       if (liff.isLoggedIn()) {
-        const profile = liff.getProfile()
+        const profile = await liff.getProfile()
         console.log("profile => ", profile)
         this.profile$.next(profile)
       } else {
