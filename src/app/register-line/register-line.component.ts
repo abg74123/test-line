@@ -74,7 +74,7 @@ export class RegisterLineComponent implements OnInit {
 
     const body = this.formRegister
 
-    this.router.post(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/register/${profile.userId}`, {...body}, {headers: headers}).subscribe(() => {
+    this.router.post(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/register/${profile.userId}`, {...body}).subscribe(() => {
       this.route.navigate(['/info'])
     })
 
