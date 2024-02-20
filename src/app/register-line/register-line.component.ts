@@ -16,7 +16,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class RegisterLineComponent implements OnInit {
   loading = false
 
-formRegister = this.fb.group({
+  formRegister = this.fb.group({
     blockedNote: "",
     compId: "",
     customerCode: "",
@@ -57,8 +57,8 @@ formRegister = this.fb.group({
 
         const getMemberDetail$ = this.lineService.getMemberDetail(profile.userId).pipe(
           map(member => {
-            if(!member){
-               throw new Error("member not fount");
+            if (!member) {
+              throw new Error("member not fount");
             }
           })
         )
@@ -66,7 +66,10 @@ formRegister = this.fb.group({
 
         concat(getMemberDetail$, changeRichMenu$).subscribe(
           {
-            error: (err) => {this.loading = false; console.error(err)},
+            error: (err) => {
+              this.loading = false;
+              console.error(err)
+            },
             complete: () => {
               // this.route.navigate(['/info'])
               window.location.href = 'https://dev-slip.gapp-biz.com/'
@@ -80,24 +83,29 @@ formRegister = this.fb.group({
     })
   }
 
-  async register() {
-    console.log('register')
-    const profile = await liff.getProfile()
-    const body = this.formRegister.value
-    console.log({body})
-    // const createMember$ = this.lineService.createMember(profile.userId, body)
-    // const changeRichMenu$ = this.lineService.changeRichMenu(profile.userId)
-    //
-    // concat(createMember$, changeRichMenu$).subscribe(
-    //   {
-    //     complete: () => {
-    //       // this.route.navigate(['/info'])
-    //      window.location.href = 'https://dev-slip.gapp-biz.com/'
-    //     }
-    //   }
-    // )
-
+  get formCustomerContactInfo(){
+    return this.formRegister.get("customerContactInfo") as any
   }
 
+  async register() {
+    console.log("formRegister valid => ", this.formRegister.valid)
+    if (this.formRegister.valid) {
+      console.log('register')
+      const profile = await liff.getProfile()
+      const body = this.formRegister.value
+      console.log({body})
+      const createMember$ = this.lineService.createMember(profile.userId, body)
+      const changeRichMenu$ = this.lineService.changeRichMenu(profile.userId)
+
+      concat(createMember$, changeRichMenu$).subscribe(
+        {
+          complete: () => {
+            // this.route.navigate(['/info'])
+            window.location.href = 'https://dev-slip.gapp-biz.com/'
+          }
+        }
+      )
+    }
+  }
 
 }

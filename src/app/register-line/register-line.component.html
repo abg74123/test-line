@@ -5,58 +5,79 @@
   </div>
 </ng-container>
 <ng-template #not_loading>
-    <h1>REGISTER</h1>
-    <!--    <pre>-->
-    <!--    {{profile | json}}-->
-    <!--  </pre>-->
-    <hr>
-    <div style="display: flex;flex-direction: column;gap:10px;">
-      <form [formGroup]="formRegister" (ngSubmit)="register()">
-        คำนำหน้า <span class="text-red">*</span>
-        <div formGroupName="customerContactInfo" class="flex-row">
-          <input id="radio_prefixName0" type="radio" value="นาย" formControlName="prefixName" name="prefixName" required> <label
+  <h1>REGISTER</h1>
+  <!--    <pre>-->
+  <!--    {{profile | json}}-->
+  <!--  </pre>-->
+  <hr>
+  <div style="display: flex;flex-direction: column;gap:10px;">
+    <form [formGroup]="formRegister" (ngSubmit)="register()">
+      คำนำหน้า <span class="text-red">*</span>
+      <div formGroupName="customerContactInfo" class="flex-row">
+        <input id="radio_prefixName0" type="radio" value="นาย" formControlName="prefixName" name="prefixName" required>
+        <label
           for="radio_prefixName0">นาย</label>
-          <input id="radio_prefixName1" type="radio" value="นาง" formControlName="prefixName" name="prefixName" required> <label
+        <input id="radio_prefixName1" type="radio" value="นาง" formControlName="prefixName" name="prefixName" required>
+        <label
           for="radio_prefixName1">นาง</label>
-          <input id="radio_prefixName2" type="radio" value="นางสาว" formControlName="prefixName" name="prefixName" required>
-          <label for="radio_prefixName2">นางสาว</label>
+        <input id="radio_prefixName2" type="radio" value="นางสาว" formControlName="prefixName" name="prefixName"
+               required>
+        <label for="radio_prefixName2">นางสาว</label>
+        <div
+          *ngIf="formCustomerContactInfo.get('prefixName').invalid && (formCustomerContactInfo.get('prefixName').dirty || formCustomerContactInfo.get('prefixName').touched)"
+          class="text-red"
+        >
+          <small *ngIf="formCustomerContactInfo.get('prefixName').errors?.['required']">Prefix is required.</small>
         </div>
+      </div>
 
-        <div formGroupName="customerContactInfo" class="flex-row">
-          <div class="form-group">
-            <label for="txt_fname">ชื่อ <span class="text-red">*</span></label>
-            <input id="txt_fname" type="text" formControlName="firstName" placeholder="ชื่อ"
-                   required>
-          </div>
-          <div class="form-group">
-            <label for="txt_lname">นามสกุล <span class="text-red">*</span></label>
-            <input id="txt_lname" type="text" formControlName="lastName"
-                   placeholder="นามสกุล" required>
-          </div>
-        </div>
-
-        <div formGroupName="customerContactInfo" class="flex-row">
-          <div formArrayName="mobiles" class="form-group">
-            <label for="txt_mobile">เบอร์โทรศัพท์</label>
-            <input id="txt_mobile" type="text" formControlName="0"
-                   placeholder="เบอร์โทรศัพท์">
-          </div>
-          <div formArrayName="emails" class="form-group">
-            <label for="txt_email">email</label>
-            <input id="txt_email" type="text" formControlName="0"
-                   placeholder="email">
+      <div formGroupName="customerContactInfo" class="flex-row">
+        <div class="form-group">
+          <label for="txt_fname">ชื่อ <span class="text-red">*</span></label>
+          <input id="txt_fname" type="text" formControlName="firstName" placeholder="ชื่อ"
+                 required>
+          <div
+            *ngIf="formCustomerContactInfo.get('firstName').invalid && (formCustomerContactInfo.get('firstName').dirty || formCustomerContactInfo.get('firstName').touched)"
+            class="text-red"
+          >
+            <small *ngIf="formCustomerContactInfo.get('firstName').errors?.['required']">Prefix is required.</small>
           </div>
         </div>
+        <div class="form-group">
+          <label for="txt_lname">นามสกุล <span class="text-red">*</span></label>
+          <input id="txt_lname" type="text" formControlName="lastName"
+                 placeholder="นามสกุล" required>
+          <div
+            *ngIf="formCustomerContactInfo.get('lastName').invalid && (formCustomerContactInfo.get('lastName').dirty || formCustomerContactInfo.get('lastName').touched)"
+            class="text-red"
+          >
+            <small *ngIf="formCustomerContactInfo.get('lastName').errors?.['required']">Prefix is required.</small>
+          </div>
+        </div>
+      </div>
 
-        <div formGroupName="customerContactInfo" class="flex-row">
-          <div class="form-group">
-            <label for="txt_address">ที่อยู่</label>
-            <textarea name="" id="txt_address" cols="30" rows="10" formControlName="address">
+      <div formGroupName="customerContactInfo" class="flex-row">
+        <div formArrayName="mobiles" class="form-group">
+          <label for="txt_mobile">เบอร์โทรศัพท์</label>
+          <input id="txt_mobile" type="text" formControlName="0"
+                 placeholder="เบอร์โทรศัพท์">
+        </div>
+        <div formArrayName="emails" class="form-group">
+          <label for="txt_email">email</label>
+          <input id="txt_email" type="text" formControlName="0"
+                 placeholder="email">
+        </div>
+      </div>
+
+      <div formGroupName="customerContactInfo" class="flex-row">
+        <div class="form-group">
+          <label for="txt_address">ที่อยู่</label>
+          <textarea name="" id="txt_address" cols="30" rows="10" formControlName="address">
           </textarea>
-          </div>
         </div>
-        <button type="submit">สมัครสมาชิก</button>
-      </form>
-    </div>
+      </div>
+      <button type="submit">สมัครสมาชิก</button>
+    </form>
+  </div>
 </ng-template>
 
