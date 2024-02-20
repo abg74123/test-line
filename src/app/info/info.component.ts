@@ -16,15 +16,15 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    liff.init({liffId: environment.liffId, withLoginOnExternalBrowser: true}).then(async () => {
-      if (liff.isLoggedIn()) {
-        const profile = await liff.getProfile()
-        console.log("profile => ", profile)
-        this.profile$ = this.lineService.getMemberDetail(profile.userId)
-      } else {
-        liff.login()
-      }
-    })
+    // liff.init({liffId: environment.liffId, withLoginOnExternalBrowser: true}).then(async () => {
+    //   if (liff.isLoggedIn()) {
+    //     const profile = await liff.getProfile()
+    //     console.log("profile => ", profile)
+    //     this.profile$ = this.lineService.getMemberDetail(profile.userId)
+    //   } else {
+    //     liff.login()
+    //   }
+    // })
   }
 
   async logout() {
