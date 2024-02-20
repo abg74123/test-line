@@ -69,7 +69,8 @@ export class RegisterLineComponent implements OnInit {
           {
             error: (err) => {this.loading = false; console.error(err)},
             complete: () => {
-              this.route.navigate(['/info'])
+              // this.route.navigate(['/info'])
+              this.route.navigateByUrl('https://dev-slip.gapp-biz.com/')
             }
           }
         )
@@ -91,7 +92,8 @@ export class RegisterLineComponent implements OnInit {
     concat(createMember$, changeRichMenu$).subscribe(
       {
         complete: () => {
-          this.route.navigate(['/info'])
+          // this.route.navigate(['/info'])
+          this.route.navigateByUrl('https://dev-slip.gapp-biz.com/')
         }
       }
     )
