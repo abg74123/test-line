@@ -56,7 +56,7 @@ export class RegisterLineComponent implements OnInit {
 
         const getMemberDetail$ = this.lineService.getMemberDetail(profile.userId).pipe(
           map(member => {
-            if(!member.data){
+            if(!member){
                throw new Error("member not fount");
             }
           })
