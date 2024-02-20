@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import liff from "@line/liff";
 import {BehaviorSubject} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
 import {LineService} from "../core/line.service";
 
@@ -14,7 +12,7 @@ import {LineService} from "../core/line.service";
 export class InfoComponent implements OnInit {
   profile$: any = new BehaviorSubject({})
 
-  constructor(private router: HttpClient, private route: Router, private lineService: LineService) {
+  constructor(private lineService: LineService) {
   }
 
   ngOnInit(): void {

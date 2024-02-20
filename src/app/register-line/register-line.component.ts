@@ -1,16 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import liff from "@line/liff";
-import {BehaviorSubject, concat, concatMap, map} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {BehaviorSubject, concat, map} from "rxjs";
 import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
 import {LineService} from "../core/line.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-register-line',
   templateUrl: './register-line.component.html',
-  styleUrls: ['./register-line.component.css']
+  styleUrls: ['./register-line.component.css'],
 })
 
 
@@ -59,7 +57,7 @@ export class RegisterLineComponent implements OnInit {
         const getMemberDetail$ = this.lineService.getMemberDetail(profile.userId).pipe(
           map(member => {
             if(!member.data){
-              throw error("member not fount")
+               throw new Error("member not fount");
             }
           })
         )
