@@ -65,6 +65,7 @@ export class RegisterLineComponent implements OnInit {
 
         concat(getMemberDetail$, changeRichMenu$).subscribe(
           {
+            error: (err) => {console.error(err)},
             complete: () => {
               this.route.navigate(['/info'])
             }
