@@ -1,14 +1,22 @@
-<ng-container *ngIf="this.profile$ | async as profile">
-  <h1>REGISTER</h1>
-  <pre>
-    {{profile | json}}
-  </pre>
-  <hr>
-  <div style="display: flex;flex-direction: column;gap:10px;">
-    <input type="text" [(ngModel)]="formRegister.customerContactInfo.firstName" placeholder="ชื่อนามสกุล">
-    <input type="text" [(ngModel)]="formRegister.customerContactInfo.lastName" placeholder="นามสกุล">
-    <input type="text" [(ngModel)]="formRegister.customerContactInfo.address" placeholder="ที่อยู่">
-    <button (click)="register()">สมัครสมาชิก</button>
+<ng-container *ngIf="loading else not_loading">
+  <div style="width:100%;height:100vh;background-image:url('assets/images/1_l-lCzn_E6dTqbYRKOC8lHw.gif');background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;">
   </div>
 </ng-container>
+<ng-template #not_loading>
+  <ng-container *ngIf="this.profile$ | async as profile">
+    <h1>REGISTER</h1>
+    <pre>
+    {{profile | json}}
+  </pre>
+    <hr>
+    <div style="display: flex;flex-direction: column;gap:10px;">
+      <input type="text" [(ngModel)]="formRegister.customerContactInfo.firstName" placeholder="ชื่อนามสกุล">
+      <input type="text" [(ngModel)]="formRegister.customerContactInfo.lastName" placeholder="นามสกุล">
+      <input type="text" [(ngModel)]="formRegister.customerContactInfo.address" placeholder="ที่อยู่">
+      <button (click)="register()">สมัครสมาชิก</button>
+    </div>
+  </ng-container>
+</ng-template>
 

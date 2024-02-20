@@ -13,6 +13,7 @@ import {LineService} from "../core/line.service";
 
 
 export class RegisterLineComponent implements OnInit {
+  loading = true
   profile$: any = new BehaviorSubject(null)
 
   formRegister: any = {
@@ -53,6 +54,7 @@ export class RegisterLineComponent implements OnInit {
       if (liff.isLoggedIn()) {
         const profile = await liff.getProfile()
         console.log("profile => ", profile)
+        this.profile$.next(profile)
 
         const getMemberDetail$ = this.lineService.getMemberDetail(profile.userId).pipe(
           map(member => {
@@ -65,13 +67,13 @@ export class RegisterLineComponent implements OnInit {
 
         concat(getMemberDetail$, changeRichMenu$).subscribe(
           {
-            error: (err) => {console.error(err)},
+            error: (err) => {this.loading = false; console.error(err)},
             complete: () => {
               this.route.navigate(['/info'])
             }
           }
         )
-        this.profile$.next(profile)
+
       } else {
         liff.login()
       }
