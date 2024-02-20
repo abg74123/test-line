@@ -4,6 +4,7 @@ import {BehaviorSubject, concat, map} from "rxjs";
 import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
 import {LineService} from "../core/line.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-register-line',
@@ -13,29 +14,28 @@ import {LineService} from "../core/line.service";
 
 
 export class RegisterLineComponent implements OnInit {
-  loading = true
-  profile$: any = new BehaviorSubject(null)
+  loading = false
 
-  formRegister: any = {
+formRegister = this.fb.group({
     blockedNote: "",
     compId: "",
     customerCode: "",
     customerCompanyContactInfo: undefined,
-    customerContactInfo: {
+    customerContactInfo: this.fb.group({
       address: undefined,
-      emails: [],
+      emails: this.fb.array(['']),
       firstName: "",
-      fullName: "",
-      lastName: "",
-      mobiles: [],
+      fullName: ["", Validators.required],
+      lastName: ["", Validators.required],
+      mobiles: this.fb.array(['']),
       note: "",
       personPic: "",
-      prefixName: "",
+      prefixName: ["", Validators.required],
       shippingAddress: [],
       social: undefined,
       tags: [],
       taxNo: ""
-    },
+    }),
     customerNote: "",
     isBlocked: false,
     isMember: false,
@@ -43,10 +43,10 @@ export class RegisterLineComponent implements OnInit {
     socialContact: [],
     tags: [],
     wasVendor: false
-  }
+  })
 
 
-  constructor(private route: Router, private lineService: LineService) {
+  constructor(private fb: FormBuilder, private route: Router, private lineService: LineService) {
   }
 
   ngOnInit(): void {
@@ -54,7 +54,6 @@ export class RegisterLineComponent implements OnInit {
       if (liff.isLoggedIn()) {
         const profile = await liff.getProfile()
         console.log("profile => ", profile)
-        this.profile$.next(profile)
 
         const getMemberDetail$ = this.lineService.getMemberDetail(profile.userId).pipe(
           map(member => {
@@ -79,11 +78,10 @@ export class RegisterLineComponent implements OnInit {
         liff.login()
       }
     })
-
   }
 
   async register() {
-
+    console.log('register')
     const profile = await liff.getProfile()
     const body = this.formRegister
     const createMember$ = this.lineService.createMember(profile.userId, body)
