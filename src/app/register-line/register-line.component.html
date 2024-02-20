@@ -11,17 +11,17 @@
   <!--  </pre>-->
   <hr>
   <div style="display: flex;flex-direction: column;gap:10px;">
-    <form [formGroup]="formRegister" (ngSubmit)="register()">
+    <form [formGroup]="formRegister" (submit)="register()">
       คำนำหน้า <span class="text-red">*</span>
       <div formGroupName="customerContactInfo" class="flex-row">
-        <input id="radio_prefixName0" type="radio" value="นาย" formControlName="prefixName" name="prefixName" required>
+        <input id="radio_prefixName0" type="radio" value="นาย" formControlName="prefixName" name="prefixName" >
         <label
           for="radio_prefixName0">นาย</label>
-        <input id="radio_prefixName1" type="radio" value="นาง" formControlName="prefixName" name="prefixName" required>
+        <input id="radio_prefixName1" type="radio" value="นาง" formControlName="prefixName" name="prefixName" >
         <label
           for="radio_prefixName1">นาง</label>
         <input id="radio_prefixName2" type="radio" value="นางสาว" formControlName="prefixName" name="prefixName"
-               required>
+               >
         <label for="radio_prefixName2">นางสาว</label>
         <div
           *ngIf="formCustomerContactInfo.get('prefixName').invalid && (formCustomerContactInfo.get('prefixName').dirty || formCustomerContactInfo.get('prefixName').touched)"
@@ -40,7 +40,7 @@
             *ngIf="formCustomerContactInfo.get('firstName').invalid && (formCustomerContactInfo.get('firstName').dirty || formCustomerContactInfo.get('firstName').touched)"
             class="text-red"
           >
-            <small *ngIf="formCustomerContactInfo.get('firstName').errors?.['required']">Prefix is required.</small>
+            <small *ngIf="formCustomerContactInfo.get('firstName').errors?.['required']">First Name is required.</small>
           </div>
         </div>
         <div class="form-group">
@@ -51,7 +51,7 @@
             *ngIf="formCustomerContactInfo.get('lastName').invalid && (formCustomerContactInfo.get('lastName').dirty || formCustomerContactInfo.get('lastName').touched)"
             class="text-red"
           >
-            <small *ngIf="formCustomerContactInfo.get('lastName').errors?.['required']">Prefix is required.</small>
+            <small *ngIf="formCustomerContactInfo.get('lastName').errors?.['required']">Last Name is required.</small>
           </div>
         </div>
       </div>

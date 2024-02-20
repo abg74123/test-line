@@ -4,7 +4,7 @@ import {BehaviorSubject, concat, map} from "rxjs";
 import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
 import {LineService} from "../core/line.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-register-line',
@@ -25,12 +25,12 @@ export class RegisterLineComponent implements OnInit {
       address: undefined,
       emails: this.fb.array(['']),
       firstName: "",
-      fullName: ["", Validators.required],
-      lastName: ["", Validators.required],
+      fullName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       mobiles: this.fb.array(['']),
       note: "",
       personPic: "",
-      prefixName: ["", Validators.required],
+      prefixName: new FormControl('', Validators.required),
       shippingAddress: [],
       social: undefined,
       tags: [],
@@ -83,14 +83,13 @@ export class RegisterLineComponent implements OnInit {
     })
   }
 
-  get formCustomerContactInfo(){
+  get formCustomerContactInfo() {
     return this.formRegister.get("customerContactInfo") as any
   }
 
   async register() {
-    console.log("formRegister valid => ", this.formRegister.valid)
+    console.log('register')
     if (this.formRegister.valid) {
-      console.log('register')
       const profile = await liff.getProfile()
       const body = this.formRegister.value
       console.log({body})
@@ -105,6 +104,10 @@ export class RegisterLineComponent implements OnInit {
           }
         }
       )
+    }else{
+     this.formCustomerContactInfo.get('prefixName').markAsTouched()
+     this.formCustomerContactInfo.get('firstName').markAsTouched()
+     this.formCustomerContactInfo.get('lastName').markAsTouched()
     }
   }
 
