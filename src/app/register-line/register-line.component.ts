@@ -89,6 +89,7 @@ export class RegisterLineComponent implements OnInit {
 
   async register() {
     console.log('register')
+    console.log("formRegister valid => ",this.formRegister.valid)
     if (this.formRegister.valid) {
       const profile = await liff.getProfile()
       const body = this.formRegister.value
