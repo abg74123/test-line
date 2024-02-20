@@ -83,18 +83,19 @@ formRegister = this.fb.group({
   async register() {
     console.log('register')
     const profile = await liff.getProfile()
-    const body = this.formRegister
-    const createMember$ = this.lineService.createMember(profile.userId, body)
-    const changeRichMenu$ = this.lineService.changeRichMenu(profile.userId)
-
-    concat(createMember$, changeRichMenu$).subscribe(
-      {
-        complete: () => {
-          // this.route.navigate(['/info'])
-         window.location.href = 'https://dev-slip.gapp-biz.com/'
-        }
-      }
-    )
+    const body = this.formRegister.value
+    console.log({body})
+    // const createMember$ = this.lineService.createMember(profile.userId, body)
+    // const changeRichMenu$ = this.lineService.changeRichMenu(profile.userId)
+    //
+    // concat(createMember$, changeRichMenu$).subscribe(
+    //   {
+    //     complete: () => {
+    //       // this.route.navigate(['/info'])
+    //      window.location.href = 'https://dev-slip.gapp-biz.com/'
+    //     }
+    //   }
+    // )
 
   }
 

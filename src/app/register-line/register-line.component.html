@@ -12,14 +12,13 @@
     <hr>
     <div style="display: flex;flex-direction: column;gap:10px;">
       <form [formGroup]="formRegister" (ngSubmit)="register()">
-
         คำนำหน้า <span class="text-red">*</span>
         <div formGroupName="customerContactInfo" class="flex-row">
-          <input id="radio_prefixName0" type="radio" value="นาย" formControlName="prefixName" name="prefixName"> <label
+          <input id="radio_prefixName0" type="radio" value="นาย" formControlName="prefixName" name="prefixName" required> <label
           for="radio_prefixName0">นาย</label>
-          <input id="radio_prefixName1" type="radio" value="นาง" formControlName="prefixName" name="prefixName"> <label
+          <input id="radio_prefixName1" type="radio" value="นาง" formControlName="prefixName" name="prefixName" required> <label
           for="radio_prefixName1">นาง</label>
-          <input id="radio_prefixName2" type="radio" value="นางสาว" formControlName="prefixName" name="prefixName">
+          <input id="radio_prefixName2" type="radio" value="นางสาว" formControlName="prefixName" name="prefixName" required>
           <label for="radio_prefixName2">นางสาว</label>
         </div>
 
