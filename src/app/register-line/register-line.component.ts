@@ -14,7 +14,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 export class RegisterLineComponent implements OnInit {
-  loading = false
+  loading = true
 
   formRegister = this.fb.group({
     blockedNote: "",
@@ -25,12 +25,12 @@ export class RegisterLineComponent implements OnInit {
       address: undefined,
       emails: this.fb.array(['']),
       firstName: "",
-      fullName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
+      fullName: ['', Validators.required] ,
+      lastName: ['', Validators.required] ,
       mobiles: this.fb.array(['']),
       note: "",
       personPic: "",
-      prefixName: new FormControl('', Validators.required),
+      prefixName: ['', Validators.required],
       shippingAddress: [],
       social: undefined,
       tags: [],
@@ -90,7 +90,7 @@ export class RegisterLineComponent implements OnInit {
   async register() {
     console.log('register')
     console.log("formRegister valid => ",this.formRegister.valid)
-    if (this.formRegister.valid) {
+    // if (this.formRegister.valid) {
       const profile = await liff.getProfile()
       const body = this.formRegister.value
       console.log({body})
@@ -105,11 +105,11 @@ export class RegisterLineComponent implements OnInit {
           }
         }
       )
-    }else{
-     this.formCustomerContactInfo.get('prefixName').markAsTouched()
-     this.formCustomerContactInfo.get('firstName').markAsTouched()
-     this.formCustomerContactInfo.get('lastName').markAsTouched()
-    }
+    // }else{
+    //  this.formCustomerContactInfo.get('prefixName').markAsTouched()
+    //  this.formCustomerContactInfo.get('firstName').markAsTouched()
+    //  this.formCustomerContactInfo.get('lastName').markAsTouched()
+    // }
   }
 
 }
