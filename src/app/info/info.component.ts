@@ -4,6 +4,7 @@ import {BehaviorSubject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
+import {LineService} from "../core/line.service";
 
 @Component({
   selector: 'app-info',
@@ -13,42 +14,30 @@ import {environment} from "../core/environment.prod";
 export class InfoComponent implements OnInit {
   profile$: any = new BehaviorSubject({})
 
-  constructor(private router: HttpClient, private route: Router) {
+  constructor(private router: HttpClient, private route: Router, private lineService: LineService) {
   }
 
   ngOnInit(): void {
-
     liff.init({liffId: environment.liffId, withLoginOnExternalBrowser: true}).then(async () => {
       if (liff.isLoggedIn()) {
         const profile = await liff.getProfile()
         console.log("profile => ", profile)
-        this.profile$.next(profile)
+        this.profile$ = this.lineService.getMemberDetail(profile.userId)
       } else {
         liff.login()
       }
     })
-
   }
 
-
-  async back() {
-
+  async logout() {
     const profile = await liff.getProfile()
-
-    const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-         'Connection': 'keep-alive',
-        'Content-Type': 'application/json'
-    });
-
-      const body = {
-      userId:profile.userId,
-      richId:"richmenu-bcd8213aaf142aad621cb024d978555c"
-    }
-
-    this.router.post("https://api-line.netlify.app/.netlify/functions/api/rich/user", {...body}, {headers:headers}).subscribe(() => {
-            this.route.navigate(['/register'])
-    })
-
+    this.lineService.changeRichMenu(profile.userId, "richmenu-334eb7175d7006cce614907e9adb63c0").subscribe(
+      {
+        complete: () => {
+          liff.logout()
+          liff.closeWindow()
+        }
+      }
+    )
   }
 }

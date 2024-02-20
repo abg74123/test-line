@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import liff from "@line/liff";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, concat, concatMap, map} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../core/environment.prod";
+import {LineService} from "../core/line.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-register-line',
@@ -45,7 +47,7 @@ export class RegisterLineComponent implements OnInit {
   }
 
 
-  constructor(private router: HttpClient, private route: Router) {
+  constructor(private route: Router, private lineService: LineService) {
   }
 
   ngOnInit(): void {
@@ -53,16 +55,24 @@ export class RegisterLineComponent implements OnInit {
       if (liff.isLoggedIn()) {
         const profile = await liff.getProfile()
         console.log("profile => ", profile)
-        this.router.get(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/${profile.userId}`).subscribe(
-          (res:any) => {
-            console.log("res => ", res)
-              if(res.data){
-                 this.route.navigate(['/info'])
-              }else{
-                this.profile$.next(profile)
-              }
+
+        const getMemberDetail$ = this.lineService.getMemberDetail(profile.userId).pipe(
+          map(member => {
+            if(!member.data){
+              throw error("member not fount")
+            }
+          })
+        )
+        const changeRichMenu$ = this.lineService.changeRichMenu(profile.userId)
+
+        concat(getMemberDetail$, changeRichMenu$).subscribe(
+          {
+            complete: () => {
+              this.route.navigate(['/info'])
+            }
           }
         )
+        this.profile$.next(profile)
       } else {
         liff.login()
       }
@@ -73,24 +83,18 @@ export class RegisterLineComponent implements OnInit {
   async register() {
 
     const profile = await liff.getProfile()
-
-    const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Connection': 'keep-alive',
-      'Content-Type': 'application/json'
-    });
-
     const body = this.formRegister
+    const createMember$ = this.lineService.createMember(profile.userId, body)
+    const changeRichMenu$ = this.lineService.changeRichMenu(profile.userId)
 
-    this.router.post(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/register/${profile.userId}`, {...body}).subscribe(() => {
-      this.route.navigate(['/info'])
-    })
+    concat(createMember$, changeRichMenu$).subscribe(
+      {
+        complete: () => {
+          this.route.navigate(['/info'])
+        }
+      }
+    )
 
-  }
-
-  logout() {
-    liff.logout()
-    liff.closeWindow()
   }
 
 
