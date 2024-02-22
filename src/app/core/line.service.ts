@@ -83,7 +83,7 @@ export class LineService {
     return this.http.post(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/register/${userId}`, {...body})
   }
 
-  changeRichMenu(userId: string, richId: string = "richmenu-1ab0e30efe3e1985bd6f013aea95d926") {
+  changeRichMenu(userId: string, richId: string = "richmenu-cfefa0b15ced44660612826bc1e3a2e7") {
     return this.http.post(`https://ppujvvtbkb.execute-api.ap-southeast-1.amazonaws.com/beta/gappslip/member/${userId}/richmenu/${richId}`, {})
   }
 

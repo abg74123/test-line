@@ -29,7 +29,7 @@ export class InfoComponent implements OnInit {
 
   async logout() {
     const profile = await liff.getProfile()
-    this.lineService.changeRichMenu(profile.userId, "richmenu-7b43436f329b4429e1ee55cb393b3649").subscribe(
+    this.lineService.changeRichMenu(profile.userId, "richmenu-3aa1b3897e05403bd05428b3076dc610").subscribe(
       {
         complete: () => {
           liff.logout()
