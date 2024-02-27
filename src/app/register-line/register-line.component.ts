@@ -22,7 +22,7 @@ export class RegisterLineComponent implements OnInit {
     liff.init({liffId: '2002624343-g6braWW3', withLoginOnExternalBrowser: true}).then(async () => {
       if (liff.isLoggedIn()) {
         const profile = liff.getProfile()
-        console.log("profile => ", profile)
+        console.log("profile  => ", profile)
         this.profile$.next(profile)
       }else{
         liff.login()
